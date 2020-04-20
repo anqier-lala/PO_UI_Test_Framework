@@ -2,4 +2,4 @@
 ./workspace.xml
 *driver
 *.log
-
+*.html
