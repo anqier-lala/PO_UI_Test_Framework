@@ -53,15 +53,21 @@ class BasePage(object):
         #     .until(EC.presence_of_element_located((locator_type, locator_value_info)))
         return element
 
+    #点击元素方法
     def click(self,element_info):
         element = self.find_element(element_info)
         element.click()
         logger.info('[%s]元素进行点击操作'%element_info['element_name'])
-
+    #输入元素的内容方法
     def input(self,element_info,content):
         element = self.find_element(element_info)
         element.send_keys(content)
         logger.info('[%s]元素输入内容：%s' %(element_info['element_name'],content))
+
+    #获取文本信息
+    def get_text(self, element_info):
+        text = self.find_element(element_info).text
+        logger.info('%s对象的文本信息为：%s' % (element_info['element_name'], text))
 
 
 
