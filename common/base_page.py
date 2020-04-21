@@ -69,6 +69,11 @@ class BasePage(object):
         text = self.find_element(element_info).text
         logger.info('%s对象的文本信息为：%s' % (element_info['element_name'], text))
 
+    # 滚动到元素
+    def scroll_to_element(self,element_info):
+        self.driver.execute_script("arguments[0].scrollIntoView();", self.find_element(element_info))
+
+
 
 
 
