@@ -3,6 +3,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from common.log_utils import logger
 from common.base_page import BasePage
+from common.config_utils import config
+from common import login
+from common.set_driver import set_driver
 
 class LoginPage(BasePage):
     def __init__(self,driver):
@@ -31,13 +34,8 @@ class LoginPage(BasePage):
         self.click( self.login_button )
 
 if __name__=="__main__":
-    current_path = os.path.dirname(__file__)
-    driver_path = os.path.join(current_path, '../webdriver/chromedriver')
-    driver = webdriver.Chrome(executable_path=driver_path)
+    driver=set_driver()
     login_page =  LoginPage(driver)
-    login_page.open_url('http://47.107.178.45/zentao/www/index.php?m=user&f=login')
-    login_page.input_username('test01')
-    login_page.input_password('newdream123')
-    login_page.click_login()
+    login.test_login(config.get_url,config.get_user_name,config.get_password,driver)
 
 

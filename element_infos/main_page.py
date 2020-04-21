@@ -4,14 +4,19 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from element_infos.login_page import LoginPage
 from common.log_utils import logger
+from common.base_page import BasePage
+from common.config_utils import config
+from common import login
+from common.set_driver import set_driver
+from element_infos.login_page import LoginPage
 
-class MainPage(object):
-    def __init__(self):
-        login_page = LoginPage()
-        login_page.input_username('test01')
-        login_page.input_password('newdream123')
-        login_page.click_login()
-        self.driver = login_page.driver # 把login_page的对象转移到mainpage
+
+class MainPage(BasePage):
+    def __init__(self,driver):
+        login_page = LoginPage(driver)
+        login.test_login(config.get_url, config.get_user_name, config.get_password, driver)
+        self.driver = login_page.driver  # 把login_page的对象转移到filepage
+        time.sleep(1)
         self.companyname_showbox = self.driver.find_element(By.XPATH,'//h1[@id="companyname"]')
         self.myzone_menu = self.driver.find_element(By.XPATH,'//li[@data-id="my"]')
         self.product_menu = self.driver.find_element(By.XPATH,'//li[@data-id="product"]')
