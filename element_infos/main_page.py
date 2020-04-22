@@ -1,3 +1,4 @@
+#coding=gbk
 import os
 import time
 from selenium import webdriver
@@ -15,27 +16,27 @@ class MainPage(BasePage):
     def __init__(self,driver):
         login_page = LoginPage(driver)
         login.test_login(config.get_url, config.get_user_name, config.get_password, driver)
-        self.driver = login_page.driver  # æŠŠlogin_pageçš„å¯¹è±¡è½¬ç§»åˆ°filepage
+        self.driver = login_page.driver  # °Ñlogin_pageµÄ¶ÔÏó×ªÒÆµ½filepage
         time.sleep(1)
         self.companyname_showbox = self.driver.find_element(By.XPATH,'//h1[@id="companyname"]')
         self.myzone_menu = self.driver.find_element(By.XPATH,'//li[@data-id="my"]')
         self.product_menu = self.driver.find_element(By.XPATH,'//li[@data-id="product"]')
         self.username_showspan = self.driver.find_element(By.XPATH,'//span[@class="user-name"]')
 
-    def get_companyname(self):  # è·å–å…¬å¸åç§°
+    def get_companyname(self):  # »ñÈ¡¹«Ë¾Ãû³Æ
         value = self.companyname_showbox.get_attribute('title')
         return value
 
-    def goto_myzone(self):  # è¿›å…¥æˆ‘çš„åœ°ç›˜èœå•
+    def goto_myzone(self):  # ½øÈëÎÒµÄµØÅÌ²Ëµ¥
         self.myzone_menu.click()
 
-    def goto_product(self):  # è¿›å…¥äº§å“èœå•
+    def goto_product(self):  # ½øÈë²úÆ·²Ëµ¥
         time.sleep(1)
         self.product_menu.click()
 
     def get_username(self):
         value = self.username_showspan.text
-        logger.info('è·å–ç”¨æˆ·åæˆåŠŸï¼Œç”¨æˆ·åæ˜¯ï¼š' + str(value) )
+        logger.info('»ñÈ¡ÓÃ»§Ãû³É¹¦£¬ÓÃ»§ÃûÊÇ£º' + str(value) )
         return value
 
 if __name__=="__main__":

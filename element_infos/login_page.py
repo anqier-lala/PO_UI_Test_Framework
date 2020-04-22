@@ -1,3 +1,4 @@
+#coding=gbk
 import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -6,25 +7,30 @@ from common.base_page import BasePage
 from common.config_utils import config
 from common import login
 from common.set_driver import set_driver
+from common.element_data_utils import ElementdataUtils
+
 
 class LoginPage(BasePage):
     def __init__(self,driver):
         super().__init__(driver)
-        self.username_inputbox = {'element_name':'ç”¨æˆ·åè¾“å…¥æ¡†',
-                                  'locator_type':'xpath',
-                                  'locator_value':'//input[@name="account"]',
-                                  'timeout': 5 }
-        self.password_inputbox = {'element_name': 'å¯†ç è¾“å…¥æ¡†',
-                                  'locator_type': 'xpath',
-                                  'locator_value': '//input[@name="password"]',
-                                  'timeout': 4}
-        self.login_button = {'element_name': 'ç™»å½•æŒ‰é’®',
-                                  'locator_type': 'xpath',
-                                  'locator_value': '//button[@id="submit"]',
-                                  'timeout': 2}
+        # self.username_inputbox = {'element_name':'ÓÃ»§ÃûÊäÈë¿ò',
+        #                           'locator_type':'xpath',
+        #                           'locator_value':'//input[@name="account"]',
+        #                           'timeout': 5 }
+        # self.password_inputbox = {'element_name': 'ÃÜÂëÊäÈë¿ò',
+        #                           'locator_type': 'xpath',
+        #                           'locator_value': '//input[@name="password"]',
+        #                           'timeout': 4}
+        # self.login_button = {'element_name': 'µÇÂ¼°´Å¥',
+        #                           'locator_type': 'xpath',
+        #                           'locator_value': '//button[@id="submit"]',
+        #                           'timeout': 2}
+        elements=ElementdataUtils('login_page').get_element_info()
+        self.username_inputbox =elements['username_inputbox']
+        self.password_inputbox=elements['password_inputbox']
+        self.login_button=elements['login_button']
 
-
-    def input_username(self,username): #æ–¹æ³• == ã€‹æ§ä»¶çš„æ“ä½œ
+    def input_username(self,username): #·½·¨ == ¡·¿Ø¼şµÄ²Ù×÷
         self.input( self.username_inputbox , username )
 
     def input_password(self,password):
