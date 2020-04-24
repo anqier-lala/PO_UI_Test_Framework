@@ -13,7 +13,7 @@ from common.element_yamldate_utils import ElementdataYamlUtils
 class LoginPage(BasePage):
     def __init__(self,driver):
         super().__init__(driver)
-        ####-----------------第一种方式---------------------####
+        ####-----------------第一种方式，直接写字典形式---------------------####
         # self.username_inputbox = {'element_name':'用户名输入框',
         #                           'locator_type':'xpath',
         #                           'locator_value':'//input[@name="account"]',
@@ -26,9 +26,9 @@ class LoginPage(BasePage):
         #                           'locator_type': 'xpath',
         #                           'locator_value': '//button[@id="submit"]',
         #                           'timeout': 2}
-        ####-----------------第二种方式---------------------####
+        ####-----------------第二种方式，使用excecl读取---------------------####
         # elements=ElementdataUtils('login_page').get_element_info()
-        ####-----------------第三种方式---------------------####
+        ####-----------------第三种方式，使用yaml读取---------------------####
         current_path = os.path.dirname(__file__)
         yaml_path = os.path.join(current_path, '../element_info_datas/element_login_infos.yaml')
         elements=ElementdataYamlUtils().get_yaml_element_info(yaml_path)
