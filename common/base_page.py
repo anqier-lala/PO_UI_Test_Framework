@@ -1,87 +1,77 @@
-import os
+#coding=gbk
+import  os
 import time
-from selenium import webdriver
-from selenium.webdriver.common.by import By
+from  selenium import  webdriver
+from selenium.webdriver.common.by import By  #µ¼Èëby·½·¨
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
 from common.log_utils import logger
 
 class BasePage(object):
     def __init__(self,driver):
-        self.driver = driver
+        self.driver=driver
 
-    # æµè§ˆå™¨æ“ä½œå°è£… -- > äºŒæ¬¡å°è£…
+    #ä¯ÀÀÆ÷²Ù×÷·â×°
     def open_url(self,url):
-        self.driver.get( url )
-        logger.info('æ‰“å¼€urlåœ°å€ %s '% url )
+        self.driver.get(url)
+        logger.info('´ò¿ªURLµØÖ·%s;'%url)
 
     def set_browser_max(self):
         self.driver.maximize_window()
-        logger.info('è®¾ç½®æµè§ˆå™¨æœ€å¤§åŒ–')
+        logger.info("ÉèÖÃä¯ÀÀÆ÷µÄ×î´ó»¯")
 
-    def set_browser_min(self):
+    def set_brower_min(self):
         self.driver.minimize_window()
-        logger.info('è®¾ç½®æµè§ˆå™¨æœ€å°åŒ–')
+        logger.info("ÉèÖÃä¯ÀÀÆ÷µÄ×îĞ¡»¯")
 
-    def refresh(self):
+    def brower_refresh(self):
         self.driver.refresh()
-        logger.info('æµè§ˆå™¨åˆ·æ–°æ“ä½œ')
+        logger.info("ä¯ÀÀÆ÷µÄË¢ĞÂ²Ù×÷")
 
     def get_title(self):
-        value = self.driver.title
-        logger.info('è·å–ç½‘é¡µæ ‡é¢˜ï¼Œæ ‡é¢˜æ˜¯%s'%value)
+        value=self.driver.title
+        logger.info("»ñÈ¡ÍøÒ³µÄ±êÌâÎª£º%s"%value)
         return value
-    #.....
 
-    #å…ƒç´ æ“ä½œå°è£…
-    # element_info = {'element_name':'ç”¨æˆ·åè¾“å…¥æ¡†','locator_type':'xpath','locator_value':'//input[@name="account"]','timeout': 5 }
+    #...
+    #ÔªËØÊ¶±ğµÄ·â×°
     def find_element(self,element_info):
-        locator_type_name = element_info['locator_type']
-        locator_value_info = element_info['locator_value']
-        locator_timeout = element_info['timeout']
-        if locator_type_name == 'id':
-            locator_type = By.ID
-        elif locator_type_name == 'class':
-            locator_type = By.CLASS_NAME
-        elif locator_type_name == 'xpath':
-            locator_type = By.XPATH
-        element = WebDriverWait(self.driver , locator_timeout)\
+        locator_type_name=element_info['locator_type']
+        locator_value_info=element_info['locator_value']
+        locator_timeout=element_info['time_out']
+        if locator_type_name =='id':
+            locator_type=By.ID
+        elif locator_type_name=='class':
+            locator_type=By.CLASS_NAME
+        elif locator_type_name=='xpath':
+            locator_type=By.XPATH
+        #Ê¶±ğÔªËØ
+        element=WebDriverWait(self.driver,locator_timeout)\
             .until(lambda x:x.find_element(locator_type,locator_value_info))
-        logger.info('[%s]å…ƒç´ è¯†åˆ«æˆåŠŸ'%element_info['element_name'])
-        # element = WebDriverWait(self.driver, locator_timeout)\
-        #     .until(EC.presence_of_element_located((locator_type, locator_value_info)))
+        logger.info('[%s]ÔªËØÊ¶±ğ³É¹¦'%element_info['element_name'])
         return element
 
-    #ç‚¹å‡»å…ƒç´ æ–¹æ³•
+    #ÔªËØ²Ù×÷·â×°£ºµã»÷·â×°
     def click(self,element_info):
-        element = self.find_element(element_info)
+        element=self.find_element(element_info)
+        logger.info('[%s]ÔªËØ½øĞĞµã»÷²Ù×÷'%element_info['element_name'])
         element.click()
-        logger.info('[%s]å…ƒç´ è¿›è¡Œç‚¹å‡»æ“ä½œ'%element_info['element_name'])
-    #è¾“å…¥å…ƒç´ çš„å†…å®¹æ–¹æ³•
+
+    # #ÔªËØ²Ù×÷·â×°£ºÊäÈëÄÚÈİ
     def input(self,element_info,content):
-        element = self.find_element(element_info)
+        element=self.find_element(element_info)
         element.send_keys(content)
-        logger.info('[%s]å…ƒç´ è¾“å…¥å†…å®¹ï¼š%s' %(element_info['element_name'],content))
+        logger.info('[%s]ÔªËØÊäÈëÄÚÈİ£º%s'%(element_info['element_name'],content))
 
-    #è·å–æ–‡æœ¬ä¿¡æ¯
-    def get_text(self, element_info):
-        text = self.find_element(element_info).text
-        logger.info('%så¯¹è±¡çš„æ–‡æœ¬ä¿¡æ¯ä¸ºï¼š%s' % (element_info['element_name'], text))
+    #»ñÈ¡ÔªËØtitleÊôĞÔ·â×°
+    def get_title(self,element_info):
+        element=self.find_element(element_info)
+        value=element.get_attribute('title')
+        logger.info('[%s]ÔªËØµÄtitleÖµÎª£º%s'%(element_info['element_name'],value))
 
-    # æ»šåŠ¨åˆ°å…ƒç´ 
-    def scroll_to_element(self,element_info):
-        self.driver.execute_script("arguments[0].scrollIntoView();", self.find_element(element_info))
-
-
-
-
-
-
-
-
-
-
+    #»ñÈ¡ÔªËØtextÊôĞÔ·â×°
+    def get_text(self,element_info):
+        text=self.find_element(element_info).text
+        logger.info('[%s]ÔªËØµÄtitleÖµÎª£º%s'%(element_info['element_name'],text))
 
 
 

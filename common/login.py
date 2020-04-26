@@ -10,7 +10,3 @@ def test_login(url, username, password, driver):
     login.input_password(password)
     login.click_login()
 
-
-if __name__ == '__main__':
-    driver=webdriver.Chrome()
-    test_login(config.get_url,config.get_user_name,config.get_password,driver)

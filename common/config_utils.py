@@ -38,6 +38,7 @@ if __name__=='__main__':
     current_path = os.path.dirname(__file__)
     cfgpath = os.path.join(current_path, "../conf/local_config.ini")
     config_u=ConfigUtils()
+    print(config_u.get_url)
     print(config_u.get_user_name)
     print(config_u.get_password)
 

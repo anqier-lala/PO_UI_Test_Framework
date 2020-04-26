@@ -4,16 +4,16 @@ username_inputbox:
   element_name: '用户名输入框'
   locator_type: 'xpath'
   locator_value: '//input[@name="account"]'
-  timeout: 5
+  time_out: 5
 
 password_inputbox:
   element_name: '密码输入框'
   locator_type : 'xpath'
   locator_value : '//input[@name="password"]'
-  timeout : 4
+  time_out : 4
 
 login_button:
   element_name: '登录按钮'
   locator_type : 'xpath'
   locator_value : '//button[@id="submit"]'
-  timeout: 2
+  time_out: 2

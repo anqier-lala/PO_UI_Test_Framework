@@ -3,7 +3,6 @@ import os
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from element_infos.login_page import LoginPage
 from common.log_utils import logger
 from common.base_page import BasePage
 from common.config_utils import config
@@ -12,38 +11,60 @@ from common.set_driver import set_driver
 from element_infos.login_page import LoginPage
 
 
-class MainPage(BasePage):
-    def __init__(self,driver):
+class MainPage(BasePage):   #object 是所有类的父类
+    def __init__(self, driver):
+        super().__init__(driver)  # 子类调用父类的属性
+        ##主页一定要先登录，才能进入这些操作，所以先引入登录类,且登录成功
+
         login_page = LoginPage(driver)
         login.test_login(config.get_url, config.get_user_name, config.get_password, driver)
-        self.driver = login_page.driver  # 把login_page的对象转移到filepage
-        time.sleep(1)
-        self.companyname_showbox = self.driver.find_element(By.XPATH,'//h1[@id="companyname"]')
-        self.myzone_menu = self.driver.find_element(By.XPATH,'//li[@data-id="my"]')
-        self.product_menu = self.driver.find_element(By.XPATH,'//li[@data-id="product"]')
-        self.username_showspan = self.driver.find_element(By.XPATH,'//span[@class="user-name"]')
+        self.set_browser_max()
 
-    def get_companyname(self):  # 获取公司名称
-        value = self.companyname_showbox.get_attribute('title')
+
+        self.companyname_showbox ={'element_name':'公司名称',
+                                'locator_type':'xpath',
+                                'locator_value':'//h1[@id="companyname"]',
+                                'time_out':2}
+
+        self.myzone_menu ={'element_name':'我的地盘',
+                            'locator_type':'xpath',
+                            'locator_value':"//li[@data-id='product']",
+                            'time_out':3}
+
+        self.product_menu ={'element_name':'产品',
+                            'locator_type':'xpath',
+                            'locator_value':"//li[@data-id='product']",
+                            'time_out':3}
+
+
+        self.username_showspan = {'element_name': '用户名',
+                             'locator_type': 'xpath',
+                             'locator_value': "//span[@class='user-name']",
+                             'time_out': 1}
+
+
+    def get_companyname(self):   #方法===>控件的操作
+        value=self.get_title(self.companyname_showbox)
         return value
 
-    def goto_myzone(self):  # 进入我的地盘菜单
-        self.myzone_menu.click()
+    def goto_myzone(self):   #进入我的地盘
+        self.click(self.myzone_menu)
 
-    def goto_product(self):  # 进入产品菜单
-        time.sleep(1)
-        self.product_menu.click()
+    def goto_product(self):   #进入产品
+        self.click(self.product_menu)
 
-    def get_username(self):
-        value = self.username_showspan.text
-        logger.info('获取用户名成功，用户名是：' + str(value) )
+    def get_username(self):  #获取用户名
+        value = self.get_text(self.username_showspan)
         return value
 
-if __name__=="__main__":
-   main_page =  MainPage()
-   main_page.goto_myzone()
-   main_page.goto_product()
-   username = main_page.get_username()
-   print( username )
 
+if __name__ == '__main__':
+    driver = webdriver.Chrome()
+    main_page=MainPage(driver)
+    time.sleep(3)
+    print(main_page.get_companyname())   ##目前输出的值为空，待解决!
+    time.sleep(3)
+    print(main_page.get_username())
+    main_page.goto_myzone()
+    main_page.goto_product()
 
