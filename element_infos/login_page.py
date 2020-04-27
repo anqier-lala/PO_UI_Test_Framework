@@ -7,7 +7,7 @@ from common.base_page import BasePage
 from common.config_utils import config
 from common import login
 from common.set_driver import set_driver
-# from common.element_data_utils import ElementdataUtils
+from common.element_data_utils import ElementdataUtils
 from common.element_yamldate_utils import ElementdataYamlUtils
 
 class LoginPage(BasePage):
@@ -27,11 +27,11 @@ class LoginPage(BasePage):
         #                           'locator_value': '//button[@id="submit"]',
         #                           'timeout': 2}
         ####-----------------第二种方式，使用excecl读取---------------------####
-        # elements=ElementdataUtils('login_page').get_element_info()
+        elements=ElementdataUtils('login_page').get_element_info()
         ####-----------------第三种方式，使用yaml读取---------------------####
-        current_path = os.path.dirname(__file__)
-        yaml_path = os.path.join(current_path, '../element_info_datas/element_login_infos.yaml')
-        elements=ElementdataYamlUtils().get_yaml_element_info(yaml_path)
+        # current_path = os.path.dirname(__file__)
+        # yaml_path = os.path.join(current_path, '../element_info_datas/element_login_infos.yaml')
+        # elements=ElementdataYamlUtils().get_yaml_element_info(yaml_path)
         #####公共####
         self.username_inputbox =elements['username_inputbox']
         self.password_inputbox=elements['password_inputbox']

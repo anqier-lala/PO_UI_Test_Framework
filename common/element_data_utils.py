@@ -25,6 +25,7 @@ class ElementdataUtils:
 
 if __name__ == '__main__':
     print(ElementdataUtils('login_page').get_element_info())
+    print(ElementdataUtils('main_page').get_element_info())
 
 
 
