@@ -31,7 +31,7 @@ class MainPage(BasePage):   #object 是所有类的父类
                             'locator_value':"//li[@data-id='product']",
                             'time_out':3}
 
-        self.product_menu ={'element_name':'产品',
+        self.product_menu ={'element_name':'迭代',
                             'locator_type':'xpath',
                             'locator_value':"//li[@data-id='product']",
                             'time_out':3}
@@ -44,7 +44,7 @@ class MainPage(BasePage):   #object 是所有类的父类
 
 
     def get_companyname(self):   #方法===>控件的操作
-        value=self.get_title(self.companyname_showbox)
+        value=self.get_element_attribute(self.companyname_showbox,'title')
         return value
 
     def goto_myzone(self):   #进入我的地盘

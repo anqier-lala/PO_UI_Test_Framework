@@ -63,15 +63,18 @@ class BasePage(object):
         logger.info('[%s]元素输入内容：%s'%(element_info['element_name'],content))
 
     #获取元素title属性封装
-    def get_title(self,element_info):
-        element=self.find_element(element_info)
-        value=element.get_attribute('title')
-        logger.info('[%s]元素的title值为：%s'%(element_info['element_name'],value))
+    # 获取元素属性封装
+    def get_element_attribute(self, element_info, attribute_name):
+        element = self.find_element(element_info)
+        value = element.get_attribute(attribute_name)
+        logger.info('[%s]元素的%s的值为：%s' % (element_info['element_name'], attribute_name, value))
+        return value
 
     #获取元素text属性封装
     def get_text(self,element_info):
         text=self.find_element(element_info).text
         logger.info('[%s]元素的title值为：%s'%(element_info['element_name'],text))
+        return text
 
 
 
