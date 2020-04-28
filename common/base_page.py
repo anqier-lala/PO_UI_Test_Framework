@@ -76,6 +76,15 @@ class BasePage(object):
         logger.info('[%s]元素的text值为：%s'%(element_info['element_name'],text))
         return text
 
+    #获取弹窗的值封装
+    def get_alert_content(self,driver):
+        time.sleep(3)
+        alert = driver.switch_to.alert  # 切换到js弹窗
+        value = alert.text
+        logger.info('当前弹窗的内容为：%s' % value)
+        return value
+
+
 
 
 
