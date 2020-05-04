@@ -16,9 +16,9 @@ class ElementdataUtils:
         for i in range(1, self.sheet.nrows):
             element_info = {}
             element_info['element_name'] = self.sheet.cell_value(i, 1)
-            element_info['locator_type'] = self.sheet.cell_value(i, 2)
-            element_info['locator_value'] = self.sheet.cell_value(i, 3)
-            element_info['timeout'] = self.sheet.cell_value(i, 4)
+            element_info['locator_type'] = self.sheet.cell_value(i, 3)  ##所属页面不要取值
+            element_info['locator_value'] = self.sheet.cell_value(i, 4)
+            element_info['timeout'] = self.sheet.cell_value(i, 5)
             element_infos[self.sheet.cell_value(i, 0)] = element_info
         return element_infos
 
@@ -26,6 +26,7 @@ class ElementdataUtils:
 if __name__ == '__main__':
     print(ElementdataUtils('login_page').get_element_info())
     print(ElementdataUtils('main_page').get_element_info())
+
 
 
 
