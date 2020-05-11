@@ -1,36 +1,18 @@
 #coding=gbk
-import os
 import time
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from common.log_utils import logger
 from common.base_page import BasePage
 from common.config_utils import config
-from common import login
-from common.set_driver import set_driver
-from element_infos.login_page import LoginPage
 from common.element_data_utils import ElementdataUtils
+from element_infos.login.login_page import LoginPage
+# from actions.login_action import LoginAction
+from common.set_driver import set_driver
 
 
-class MainPage(BasePage):   #object 是所有类的父类
+class MainPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)  # 子类调用父类的属性
-        ##主页一定要先登录，才能进入这些操作，所以先引入登录类,且登录成功
-        login_page = LoginPage(driver)
-        login.test_login(config.get_url, config.get_user_name, config.get_password, driver)
-        self.set_browser_max()
-
-        # self.companyname_showbox ={'element_name':'公司名称',
-        #                         'locator_type':'xpath',
-        #                         'locator_value':'//h1[@id="companyname"]',
-        #                         'timeout':2}
-        #
-        # self.username_showspan = {'element_name': '用户名',
-        #                      'locator_type': 'xpath',
-        #                      'locator_value': "//span[@class='user-name']",
-        #                      'timeout': 1}
-
-        elements = ElementdataUtils('main_page').get_element_info()
+        elements = ElementdataUtils('main','main_page').get_element_info()
         self.companyname_showbox =elements['companyname_showbox']
         self.myzone_menu=elements['myzone_menu']
         self.product_menu=elements['product_menu']
@@ -38,12 +20,15 @@ class MainPage(BasePage):   #object 是所有类的父类
         self.project_menu=elements['project_menu']
         self.test_menu=elements['test_menu']
         self.file_menu=elements['file_menu']
+        self.user_menu=elements['user_menu']
+        self.quit_button=elements['quit_button']
         ##以下控件元素识别以后用于校验点击后进入对应页面
         self.myzone_menu_homepage=elements['myzone_menu_homepage']
         self.product_menu_productpage=elements['product_menu_productpage']
         self.project_menu_projectpage=elements['project_menu_projectpage']
         self.test_menu_testpage=elements['test_menu_testpage']
         self.file_menu_filepage=elements['file_menu_filepage']
+
 
     def get_companyname(self):   #方法===>控件的操作
         value=self.get_element_attribute(self.companyname_showbox,'title')
@@ -63,6 +48,13 @@ class MainPage(BasePage):   #object 是所有类的父类
         value = self.get_text(self.username_showspan)
         return value
 
+    def click_username(self):
+        self.click( self.user_menu )
+
+    def click_quit_button(self):
+        self.click( self.quit_button )
+
+
     def goto_project(self):   #进入项目后获取项目主页标识
         self.click(self.project_menu)
         value = self.get_text(self.project_menu_projectpage)
@@ -81,21 +73,25 @@ class MainPage(BasePage):   #object 是所有类的父类
 
 
 if __name__ == '__main__':
-    driver = webdriver.Chrome()
-    main_page=MainPage(driver)
-    time.sleep(1)
+    from actions.login_action import LoginAction
+    driver =set_driver()
+    driver.get(config.get_url)
+    main_page = LoginAction(driver).default_login()
+    main_page.wait()   #调试调用封装的等待方法
     print(main_page.get_companyname())
-    time.sleep(1)
+    main_page.wait(1)
     print(main_page.get_username())
-    time.sleep(1)
+    main_page.wait(1)
     print(main_page.goto_myzone())
-    time.sleep(1)
+    main_page.wait(1)
     print(main_page.goto_product())
-    time.sleep(1)
+    main_page.wait(1)
     print(main_page.goto_project())
-    time.sleep(1)
+    main_page.wait(1)
     print(main_page.goto_test())
-    time.sleep(1)
+    main_page.wait(1)
     print(main_page.goto_file())
+
+
 
 

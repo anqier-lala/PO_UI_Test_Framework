@@ -1,13 +1,10 @@
-import os
 import time
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from common.log_utils import logger
 from common.base_page import BasePage
 from common.config_utils import config
 from common import login
 from common.set_driver import set_driver
-from element_infos.login_page import LoginPage
+from element_infos.login.login_page import LoginPage
 
 
 class FilePage(BasePage):

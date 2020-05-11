@@ -27,6 +27,3 @@ def __get_remote_driver(self):  # seleniumÖ§³Ö·Ö²¼Ê½ grid == > ÅäÖÃ£¨Äã×Ô¼ºµÄ´úÂ
 
 if __name__ == '__main__':
     set_driver()
-
-if __name__ == '__main__':
-    set_driver()
