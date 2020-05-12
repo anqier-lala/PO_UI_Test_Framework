@@ -11,11 +11,11 @@ from common.test_data_utils import TestDataUtils
 
 class QuitTest(SeleniumBaseCase):
 
+    test_class_data = TestDataUtils('main_suite', 'main_test', 'QuitTest').convert_exceldata_to_testdata()
     def setUp(self) -> None:
         super().setUp()
-        self.test_class_data = TestDataUtils('main_suite', 'main_test', 'QuitTest').convert_exceldata_to_testdata()
 
-
+    @unittest.skipIf(test_class_data['test_quit']['isnot'], '')
     def test_quit(self):
         login_action = LoginAction(self.base_page.driver)
         main_page = login_action.default_login()

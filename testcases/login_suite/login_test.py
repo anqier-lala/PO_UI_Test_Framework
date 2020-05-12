@@ -28,6 +28,7 @@ class LoginTest(SeleniumBaseCase):
         actual_result = main_page.get_username()
         self.assertEqual(actual_result,test_function_data['excepted_result'],'test_login_successÓÃÀıÖ´ĞĞÊ§°Ü')
 
+    @unittest.skipIf(test_class_data['test_login_fail']['isnot'], '')
     def test_login_fail(self):
         test_function_data = self.test_class_data['test_login_fail']
         self._testMethodDoc = test_function_data['test_name']
